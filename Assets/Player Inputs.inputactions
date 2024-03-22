@@ -1,0 +1,54 @@
+{
+    "name": "Player Inputs",
+    "maps": [
+        {
+            "name": "Acceleration and Break",
+            "id": "119af25f-6fa7-4275-a729-c2bd06d2f0f0",
+            "actions": [
+                {
+                    "name": "Accelerate",
+                    "type": "Value",
+                    "id": "2784679f-1f9d-4316-8976-a6084818fdcb",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Brake",
+                    "type": "Value",
+                    "id": "eafcb8de-996a-48a2-aed0-92e0b09e6a51",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "596cec0f-d44c-465f-bcce-b6bef1b7930e",
+                    "path": "<HID::Thrustmaster T-Pedals>/rz",
+                    "interactions": "",
+                    "processors": "Invert,AxisDeadzone",
+                    "groups": "",
+                    "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00d1a0b4-4965-4375-86dd-91ce867d3be3",
+                    "path": "<HID::Thrustmaster T-Pedals>/z",
+                    "interactions": "",
+                    "processors": "Invert,AxisDeadzone",
+                    "groups": "",
+                    "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
