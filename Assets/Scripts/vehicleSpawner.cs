@@ -3,12 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class vehicleSpawner : MonoBehaviour{
-
-
-
-
     public carNode[] waypoints;
-
 
     public GameObject[] vehicle;
     public int totalPopulationMax = 20;
@@ -68,6 +63,4 @@ public class vehicleSpawner : MonoBehaviour{
             spawnPrefab(index);
         }
     }
-
-
 }

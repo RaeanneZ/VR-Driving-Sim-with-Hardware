@@ -71,10 +71,10 @@ public class generateWaypoints : EditorWindow
         for (int i = 0; i < nodes.Length; i++){
 
             carNode e = nodes[i].GetComponent<carNode>();
-            if(e != null && e.nextWaypoint != null && e.previousWaypont != null){
-                carNode tmp = e.nextWaypoint;
-                e.nextWaypoint = e.previousWaypont;
-                e.previousWaypont = tmp;
+            if(e != null && e.nextWaypoint != null && e.previousWaypoint != null){
+                carNode tmp = (carNode)e.nextWaypoint;
+                e.nextWaypoint = e.previousWaypoint;
+                e.previousWaypoint = tmp;
             }
         }
         rev = rev ? false : true;
@@ -93,9 +93,9 @@ public class generateWaypoints : EditorWindow
 
             nodes[i].gameObject.tag = "pedestrianNode";
 
-            waypoint w = nodes[i].GetComponent<waypoint>();
+            Waypoint w = nodes[i].GetComponent<Waypoint>();
             if(w == null){
-                nodes[i].gameObject.AddComponent<waypoint>();
+                nodes[i].gameObject.AddComponent<Waypoint>();
             }
         }
     }
@@ -111,8 +111,6 @@ public class generateWaypoints : EditorWindow
             MeshFilter filter = nodes[i].GetComponent<MeshFilter>();
             if(filter != null) DestroyImmediate(nodes[i].GetComponent<MeshFilter>());
 
-            //nodes[i].gameObject.tag = "pedestrianNode";
-
             carNode w = nodes[i].GetComponent<carNode>();
             if(w == null){
                 nodes[i].gameObject.AddComponent<carNode>();
@@ -123,10 +121,10 @@ public class generateWaypoints : EditorWindow
     void assingLoopNode()
     {
         for (int i = 0; i < nodes.Length; i++){
-            waypoint w = nodes[i].GetComponent<waypoint>();
+            Waypoint w = nodes[i].GetComponent<Waypoint>();
             if(w != null){
-                nodes[i].gameObject.GetComponent<waypoint>().previousWaypont = (i == 0)? nodes[nodes.Length-1].GetComponent<waypoint>() : nodes[i-1].GetComponent<waypoint>();
-                nodes[i].gameObject.GetComponent<waypoint>().nextWaypoint = (i == nodes.Length-1)? nodes[0].GetComponent<waypoint>() : nodes[i+1].GetComponent<waypoint>();
+                nodes[i].gameObject.GetComponent<Waypoint>().previousWaypoint = (i == 0)? nodes[nodes.Length-1].GetComponent<Waypoint>() : nodes[i-1].GetComponent<Waypoint>();
+                nodes[i].gameObject.GetComponent<Waypoint>().nextWaypoint = (i == nodes.Length-1)? nodes[0].GetComponent<Waypoint>() : nodes[i+1].GetComponent<Waypoint>();
             }
         }
     }
@@ -134,10 +132,10 @@ public class generateWaypoints : EditorWindow
     void assingNodeOpen()
     {
         for (int i = 0; i < nodes.Length; i++){
-            waypoint w = nodes[i].GetComponent<waypoint>();
+            Waypoint w = nodes[i].GetComponent<Waypoint>();
             if(w != null){
-                nodes[i].gameObject.GetComponent<waypoint>().previousWaypont = (i == 0)? null : nodes[i-1].GetComponent<waypoint>();
-                nodes[i].gameObject.GetComponent<waypoint>().nextWaypoint = (i == nodes.Length-1)? null: nodes[i+1].GetComponent<waypoint>();
+                nodes[i].gameObject.GetComponent<Waypoint>().previousWaypoint = (i == 0)? null : nodes[i-1].GetComponent<Waypoint>();
+                nodes[i].gameObject.GetComponent<Waypoint>().nextWaypoint = (i == nodes.Length-1)? null: nodes[i+1].GetComponent<Waypoint>();
             }
         }
     }
@@ -146,7 +144,7 @@ public class generateWaypoints : EditorWindow
         for (int i = 0; i < nodes.Length; i++){
             carNode w = nodes[i].GetComponent<carNode>();
             if(w != null){
-                nodes[i].gameObject.GetComponent<carNode>().previousWaypont = (i == 0)? null : nodes[i-1].GetComponent<carNode>();
+                nodes[i].gameObject.GetComponent<carNode>().previousWaypoint = (i == 0)? null : nodes[i-1].GetComponent<carNode>();
                 nodes[i].gameObject.GetComponent<carNode>().nextWaypoint = (i == nodes.Length-1)? null: nodes[i+1].GetComponent<carNode>();
             }
         }
@@ -173,24 +171,22 @@ public class generateWaypoints : EditorWindow
 
 
         Gizmos.DrawSphere(waypoint.transform.position , 0.1f);
-        if(waypoint.nextWaypoint != null && waypoint.previousWaypont != null){
-            Gizmos.DrawLine(waypoint.transform.position ,waypoint.previousWaypont.transform.position );
+        if(waypoint.nextWaypoint != null && waypoint.previousWaypoint != null){
+            Gizmos.DrawLine(waypoint.transform.position ,waypoint.previousWaypoint.transform.position );
 
         }
-        else if(waypoint.previousWaypont == null && waypoint.nextWaypoint != null){
+        else if(waypoint.previousWaypoint == null && waypoint.nextWaypoint != null){
             Gizmos.color = Color.green ;
             Gizmos.DrawLine(waypoint.transform.position ,waypoint.nextWaypoint.transform.position );
         }
         else{
             Gizmos.color = Color.yellow ;
-            if(waypoint.previousWaypont != null)
-            Gizmos.DrawLine(waypoint.transform.position ,waypoint.previousWaypont.transform.position );
+            if(waypoint.previousWaypoint != null)
+            Gizmos.DrawLine(waypoint.transform.position ,waypoint.previousWaypoint.transform.position );
         }
 
         if(waypoint.link != null)
-            Gizmos.DrawLine(waypoint.transform.position ,waypoint.link.transform.position );
-        
-        
+            Gizmos.DrawLine(waypoint.transform.position ,waypoint.link.transform.position );   
     }
 
 }
