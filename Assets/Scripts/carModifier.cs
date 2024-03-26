@@ -18,7 +18,7 @@ public class CarModifier : MonoBehaviour
     [Range(0.4f, 1)] public float sidewaysFriction;
     [Range(0.5f, 1)] public float forwardFriction;
 
-    private CarController controller;
+    //private CarController controller;
     private GameObject wheelsFolder;
     private GameObject[] wheels;
     private Vector3 wheelPosition;
@@ -27,19 +27,17 @@ public class CarModifier : MonoBehaviour
 
     private void Awake()
     {
-        controller = GetComponent<CarController>();
-        wheelsFolder = gameObject.transform.Find("wheels").gameObject;
+    //    controller = GetComponent<CarController>();
+    //    wheelsFolder = gameObject.transform.Find("wheels").gameObject;
 
-        wheels = new GameObject[wheelsFolder.transform.childCount - 1];
-        colliders = new WheelCollider[wheels.Length];
+    //    wheels = new GameObject[wheelsFolder.transform.childCount - 1];
+    //    colliders = new WheelCollider[wheels.Length];
 
-        for (int i = 0; i < wheels.Length; i++)
-        {
-            wheels[i] = wheelsFolder.transform.GetChild(i + 1).gameObject;
-        }
+    //    for (int i = 0; i < wheels.Length; i++)
+    //    {
+    //        wheels[i] = wheelsFolder.transform.GetChild(i + 1).gameObject;
+    //    }
 
-        GameObject wheelObject = wheelsFolder.transform.GetChild(0).gameObject;
-        spawnWheelColliders();
-        spawn
+    //    GameObject wheelObject = wheelsFolder.transform.GetChild(0).gameObject;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class vehicleAiController : MonoBehaviour{
@@ -29,12 +30,19 @@ public class vehicleAiController : MonoBehaviour{
         FL_wheelTransform = GameObject.Find("RMCDemo_WheelFrontLeft").transform;
         FR_wheelTransform = GameObject.Find("RMCDemo_WheelFrontRight").transform;
 
+        FL_WheelCollider = GameObject.Find("EU_FL Wheel").GetComponent<WheelCollider>();
+        FR_WheelCollider = GameObject.Find("EU_FR Wheel").GetComponent<WheelCollider>();
+        BL_WheelCollider = GameObject.Find("EU_BL Wheel").GetComponent<WheelCollider>();
+        BR_WheelCollider = GameObject.Find("EU_BR Wheel").GetComponent<WheelCollider>();
+
+        wheels = new WheelCollider[4] { FL_WheelCollider, FR_WheelCollider, BL_WheelCollider, BR_WheelCollider };
+
     }
 
     void FixedUpdate(){
         try{
         checkDistance();
-        //steerVehicle();
+        steerVehicle();
         }
         catch{}
     
@@ -76,25 +84,26 @@ public class vehicleAiController : MonoBehaviour{
         relativeVector /= relativeVector.magnitude;
         float newSteer = (relativeVector.x / relativeVector.magnitude) * 2;
         horizontal = newSteer;
-        foreach (var item in wheels)
+
+        foreach (WheelCollider item in wheels)
         {
             item.motorTorque = totalPower;
         }
 
         if (horizontal > 0)
         {
-            wheels[0].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
-            wheels[1].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
+            FL_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
+            FR_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
         }
         else if (horizontal < 0)
         {
-            wheels[0].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
-            wheels[1].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
+            FL_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
+            FR_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
         }
         else
         {
-            wheels[0].steerAngle = 0;
-            wheels[1].steerAngle = 0;
+            FL_WheelCollider.steerAngle = 0;
+            FR_WheelCollider.steerAngle = 0;
         }
 
     }
