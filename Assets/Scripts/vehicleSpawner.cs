@@ -12,7 +12,7 @@ public class vehicleSpawner : MonoBehaviour{
     public List<GameObject> spawnedAi ;
 
     void Awake(){
-        loadArray();
+        //loadArray();
         StartCoroutine(spawner());
         managePopulation();
     }
@@ -35,7 +35,7 @@ public class vehicleSpawner : MonoBehaviour{
     public IEnumerator spawner(){
 
 		while(true){
-			yield return new WaitForSeconds(20);
+			yield return new WaitForSeconds(7);
             managePopulation();
 		}
 	
