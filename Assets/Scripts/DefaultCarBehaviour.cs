@@ -33,7 +33,6 @@ public class DefaultCarBehaviour : MonoBehaviour
     private float defaultAcceleration = 10f;
     private float accelerationForce = 1500f;
     private float brakeForce = 2000f;
-    private int maxSpeed = 180;
     private float maxSteeringAngle = 30;
 
     // Start is called before the first frame update
@@ -161,8 +160,7 @@ public class DefaultCarBehaviour : MonoBehaviour
         }
 
         // For UI
-        int carSpeed = CalculateSpeed(Mathf.Abs(totalAccF), totalBrakeF);
-        speedText.text = carSpeed.ToString() + " km/h";
+        speedText.text = Mathf.FloorToInt(gameObject.GetComponent<Rigidbody>().velocity.magnitude * 10).ToString() + " km/h";
     } 
 
     /// <summary>
@@ -192,21 +190,6 @@ public class DefaultCarBehaviour : MonoBehaviour
         {
             return Mathf.Abs(value) + 0.05f;
         }
-    }
-
-    int CalculateSpeed(float accVal, float breakVal)
-    {
-        // Acceleration force - Break force
-        float nettForce = accVal - breakVal;
-
-        // if break force larger than acceleration force
-        if (nettForce < 0)
-        {
-            return 0;
-        }
-
-        // if acceleration force larger than break force
-        return Mathf.FloorToInt((nettForce / Mathf.Abs(defaultAcceleration + accelerationForce)) * maxSpeed);
     }
 
     public float Accelerate(float value)
