@@ -160,7 +160,7 @@ public class DefaultCarBehaviour : MonoBehaviour
         }
 
         // For UI
-        speedText.text = Mathf.FloorToInt(gameObject.GetComponent<Rigidbody>().velocity.magnitude * 10).ToString() + " km/h";
+        speedText.text = Mathf.FloorToInt(gameObject.GetComponent<Rigidbody>().velocity.magnitude * 5).ToString() + " km/h";
     } 
 
     /// <summary>
