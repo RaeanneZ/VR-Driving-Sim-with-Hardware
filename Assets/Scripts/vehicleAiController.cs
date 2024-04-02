@@ -24,9 +24,6 @@ public class vehicleAiController : MonoBehaviour{
     private Vector3 velocity ,Destination, lastPosition;
 
     void Start(){
-        //modifier = GetComponent<CarModifier>();
-        //wheels = modifier.colliders;
-
         FL_wheelTransform = GameObject.Find("RMCDemo_WheelFrontLeft").transform;
         FR_wheelTransform = GameObject.Find("RMCDemo_WheelFrontRight").transform;
 
@@ -58,7 +55,8 @@ public class vehicleAiController : MonoBehaviour{
         
     }
 
-        
+    // When car reaches the node, check for the next node
+    // If no more next node (means end of route) then do nothing, else target the next node
     private void reachedDestination(){
         if(currentNode.nextWaypoint == null ){
             currentNode = (carNode)currentNode.previousWaypoint;
@@ -69,6 +67,7 @@ public class vehicleAiController : MonoBehaviour{
             return;
         }
 
+        // Randomly decides which route to take if there's more than 1 path
         if(currentNode.link != null && Random.Range(0 , 100) <= 20)
             currentNode = currentNode.link;
         else
@@ -76,26 +75,28 @@ public class vehicleAiController : MonoBehaviour{
 
     }
 
-
+    // This is to handle car movement
     private void steerVehicle()
     {
-
+        // Calculating steering angle needed
         Vector3 relativeVector = transform.InverseTransformPoint(currentNode.transform.position);
         relativeVector /= relativeVector.magnitude;
         float newSteer = (relativeVector.x / relativeVector.magnitude) * 2;
         horizontal = newSteer;
 
+        // 4 wheel drive - apply the motor to all wheel colliders
         foreach (WheelCollider item in wheels)
         {
             item.motorTorque = totalPower;
         }
 
+        // if car moving to the right 
         if (horizontal > 0)
         {
             FL_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
             FR_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
         }
-        else if (horizontal < 0)
+        else if (horizontal < 0) // if car moving to the left
         {
             FL_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
             FR_WheelCollider.steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
@@ -108,6 +109,7 @@ public class vehicleAiController : MonoBehaviour{
 
     }
 
+    // Visual reference in Unity for debugging where the current node is, not seen in the game view
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;

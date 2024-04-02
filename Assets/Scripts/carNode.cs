@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class carNode : Waypoint{
 
-    //public carNode previousWaypont;
-    //public carNode nextWaypoint;
-
     public carNode link;
-
 
     public Vector3 getPosition(){
         Vector3 minBound = transform.position ;

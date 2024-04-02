@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 using UnityEngine.XR;
 using UnityEngine.XR.Management;
 
-public class DefaultCarBehaviour : MonoBehaviour
+public class UserCarControls : MonoBehaviour
 {
     public InputActionMap inputActionMap;
     
@@ -80,17 +80,18 @@ public class DefaultCarBehaviour : MonoBehaviour
 
         offset.localPosition = new Vector3(offsetX, 0, offsetZ);
 
-        // Rotating steering wheel
+        // Rotating steering wheel about y axis
+        float steeringAngle = offsetX * maxSteeringAngle;
         float steeringAngleInDeg = offsetX * Mathf.Rad2Deg;
         steeringGameObject.localEulerAngles = new Vector3(0, steeringAngleInDeg, 0);
 
         // Show the wheel transformation change
-        FL_wheelTransform.localEulerAngles = new Vector3(0, offsetX * maxSteeringAngle, 0);
-        FR_wheelTransform.localEulerAngles = new Vector3(0, offsetX * maxSteeringAngle, 0);
+        FL_wheelTransform.localEulerAngles = new Vector3(0, steeringAngle, 0);
+        FR_wheelTransform.localEulerAngles = new Vector3(0, steeringAngle, 0);
 
         // Change steering angle to move car in the direction 
-        FL_WheelCollider.steerAngle = offsetX * maxSteeringAngle;
-        FR_WheelCollider.steerAngle = offsetX * maxSteeringAngle;       
+        FL_WheelCollider.steerAngle = steeringAngle;
+        FR_WheelCollider.steerAngle = steeringAngle;       
     }
 
     /// <summary>

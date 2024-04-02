@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CleanUp : MonoBehaviour
 {
+    // Clean up scene by deleting everything once user stops game
     private void OnDestroy()
     {
         foreach (GameObject obj in UnityEngine.Object.FindObjectsOfType(typeof(GameObject)))

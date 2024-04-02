@@ -5,6 +5,7 @@ using UnityEditor;
 
 public class generateWaypoints : EditorWindow 
 {
+    // This is for toolbar
     [MenuItem("Tools/waypoints Generator")]
 
     public static void Open(){
@@ -39,6 +40,7 @@ public class generateWaypoints : EditorWindow
         obj.ApplyModifiedProperties();
     }
 
+    // Buttons for creating the nodes
     void DrawButtons()
     {
         if(GUILayout.Button("generate Pedestrian Node")){
