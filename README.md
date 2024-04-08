@@ -1,7 +1,7 @@
 # VR Driving Simulator with Unity
 ## Resources Used 
 #### Car AI
-1. [![Traffic System In Unity Video] (https://www.youtube.com/watch?v=MXCZ-n5VyJ)]
+1. [![Traffic System In Unity Video] (https://www.youtube.com/watch?v=MXCZ-n5VyJ)
 2. Traffic System [Video]
    
 #### Calling Oculus Controllers’ Inputs
