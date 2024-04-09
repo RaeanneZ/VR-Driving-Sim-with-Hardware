@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class waypointManagerWindow : EditorWindow{
+public class waypointManagerWindow : EditorWindow {
  
     [MenuItem("Tools/waypoints Editor")]
 
@@ -11,15 +11,19 @@ public class waypointManagerWindow : EditorWindow{
         GetWindow<waypointManagerWindow>();
     }
 
+    // Parent container that contains all the waypoints for that route
     public Transform waypointRoot;
 
+    /// <summary>
+    /// Draws the UI in editor for easier reference
+    /// </summary>
     void OnGUI(){
         SerializedObject obj = new SerializedObject(this);
 
         EditorGUILayout.PropertyField(obj.FindProperty("waypointRoot"));
 
         if(waypointRoot == null){
-            EditorGUILayout.HelpBox("transform not assigned",MessageType.Warning);
+            EditorGUILayout.HelpBox("Please select a root transform",MessageType.Warning);
         }
         else{
             EditorGUILayout.BeginVertical("Box");
@@ -31,6 +35,9 @@ public class waypointManagerWindow : EditorWindow{
         obj.ApplyModifiedProperties();
     }
 
+    /// <summary>
+    /// UI to draw buttons on possible lists of actions
+    /// </summary>
     void DrawButtons(){
         if(GUILayout.Button("Create waypoint")){
             createWaypoint();
@@ -50,6 +57,28 @@ public class waypointManagerWindow : EditorWindow{
             }
 
         }
+    }
+
+    void createWaypoint()
+    {
+        GameObject waypointObject = new GameObject("waypoint " + waypointRoot.childCount, typeof(Waypoint));
+        waypointObject.transform.SetParent(waypointRoot, false);
+
+        Waypoint waypoint = waypointObject.GetComponent<Waypoint>();
+        if (waypointRoot.childCount > 1)
+        {
+            waypoint.previousWaypoint = waypointRoot.GetChild(waypointRoot.childCount - 2).GetComponent<Waypoint>();
+            waypoint.previousWaypoint.nextWaypoint = waypoint;
+
+            Debug.Log("Next Waypoint: " + waypoint.name);
+
+            // Place the waypoint at the last position
+            waypoint.transform.position = waypoint.previousWaypoint.transform.position;
+            waypoint.transform.forward = waypoint.previousWaypoint.transform.forward;
+        }
+
+        Selection.activeGameObject = waypoint.gameObject;
+
     }
 
     void createWaypointBefore(){
@@ -115,24 +144,33 @@ public class waypointManagerWindow : EditorWindow{
         DestroyImmediate(selectedWaypoint.gameObject);
     }
 
-    void createWaypoint(){
-        GameObject waypointObject = new GameObject("waypoint " + waypointRoot.childCount,typeof(Waypoint));
-        waypointObject.transform.SetParent(waypointRoot,false);
+    public static void OnDrawGizmos(carNode waypoint, GizmoType gizmoType)
+    {
+        if ((gizmoType & GizmoType.Selected) != 0)
+            Gizmos.color = Color.white;
+        else
+            Gizmos.color = Color.white;
 
-        Waypoint waypoint = waypointObject.GetComponent<Waypoint>();
-        if(waypointRoot.childCount > 1){
-            waypoint.previousWaypoint = waypointRoot.GetChild(waypointRoot.childCount - 2).GetComponent<Waypoint>();
-            waypoint.previousWaypoint.nextWaypoint = waypoint;
 
-            Debug.Log("Next Waypoint: " +  waypoint.name);
- 
-            waypoint.transform.position = waypoint.previousWaypoint.transform.position;
-            waypoint.transform.forward = waypoint.previousWaypoint.transform.forward;
+        Gizmos.DrawSphere(waypoint.transform.position, 0.1f);
+        if (waypoint.nextWaypoint != null && waypoint.previousWaypoint != null)
+        {
+            Gizmos.DrawLine(waypoint.transform.position, waypoint.previousWaypoint.transform.position);
+
+        }
+        else if (waypoint.previousWaypoint == null && waypoint.nextWaypoint != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(waypoint.transform.position, waypoint.nextWaypoint.transform.position);
+        }
+        else
+        {
+            Gizmos.color = Color.yellow;
+            if (waypoint.previousWaypoint != null)
+                Gizmos.DrawLine(waypoint.transform.position, waypoint.previousWaypoint.transform.position);
         }
 
-        Selection.activeGameObject = waypoint.gameObject;
-
+        if (waypoint.link != null)
+            Gizmos.DrawLine(waypoint.transform.position, waypoint.link.transform.position);
     }
-
-
 }

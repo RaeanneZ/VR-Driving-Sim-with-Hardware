@@ -51,8 +51,6 @@ public class vehicleAiController : MonoBehaviour{
             if(Vector3.Distance(transform.position , currentNode.transform.position) <= 3){
                 reachedDestination();
             }
-
-        
     }
 
     // When car reaches the node, check for the next node

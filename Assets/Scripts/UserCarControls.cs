@@ -128,7 +128,7 @@ public class UserCarControls : MonoBehaviour
     void PedalControl()
     {
         // Get the value of the left and right pedals, values are 1 (rest state) ... -1 (pedals are floored)
-        float gasPedalInput = inputActionMap.FindAction("Accelerate").ReadValue<float>();
+        float gasPedalInput = inputActionMap.FindAction("Accelerate").ReadValue<float>(); 
         float brakePedalInput = inputActionMap.FindAction("Brake").ReadValue<float>();
 
         // This is for calculation later to display in UI

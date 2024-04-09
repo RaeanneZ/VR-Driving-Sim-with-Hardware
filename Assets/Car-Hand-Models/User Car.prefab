@@ -3944,7 +3944,7 @@ GameObject:
   - component: {fileID: 2708533796370908241}
   - component: {fileID: 1342796868144408384}
   m_Layer: 0
-  m_Name: RMCarDemo_USA
+  m_Name: User Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
