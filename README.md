@@ -4,7 +4,7 @@
 1. [[Traffic System In Unity Video]](https://www.youtube.com/watch?v=MXCZ-n5VyJc)
    
 #### Calling Oculus Controllers’ Inputs
-1. [[Oculus Quest 2 Controller Buttons Names]](https://www.youtube.com/watch?v=hZlCqHOosw)
+1. [[Oculus Quest 2 Controller Buttons Names]](https://www.youtube.com/watch?v=OhZlCqHOosw)
 2. [[Unity Forum To Get A-B-X-Y Buttons]](https://forum.unity.com/threads/oculus-quest-how-to-detect-a-b-x-y-button-presses.1108232/)
    
 #### Connecting to External Devices
