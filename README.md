@@ -25,14 +25,17 @@ To create a lifelike environment fast, Google Map Tiles API is used in conjuncti
 
 ## Files
 **Car Controls** 
+
 UserCarControls.cs
 
 **CGF Vehichle (the NPC Cars)**
+
 vehicleAIController.cs (for car movement), Waypoint.cs (to create waypoints and its attributes), carNode.cs (child of Waypoint.cs, it is specifically for vehicle node only), generateWaypoint.cs and WaypointManagerWindow.cs (to draw the route that cars will follow) 
 
 *Note: To use generateWaypoint.cs and WaypointManagerWindow.cs, under Toolbar in Unity, hover for dropdown and select, it should open as a window in Unity*
 
 **Traffic Light**
+
 TrafficLight.cs (this is just to change traffic light color between red, amber and green), TrafficLightController.cs (to control multiple traffic lights at once for areas like cross junction, all timing syncronisation should be done here)
 
 
