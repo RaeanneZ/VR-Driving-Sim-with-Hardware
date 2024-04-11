@@ -29,6 +29,7 @@ UserCarControls.cs
 
 **CGF Vehichle (the NPC Cars)**
 vehicleAIController.cs (for car movement), Waypoint.cs (to create waypoints and its attributes), carNode.cs (child of Waypoint.cs, it is specifically for vehicle node only), generateWaypoint.cs and WaypointManagerWindow.cs (to draw the route that cars will follow) 
+
 *Note: To use generateWaypoint.cs and WaypointManagerWindow.cs, under Toolbar in Unity, hover for dropdown and select, it should open as a window in Unity*
 
 **Traffic Light**
